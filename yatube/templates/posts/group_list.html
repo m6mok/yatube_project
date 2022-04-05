@@ -1,22 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}
-{{ title }}
-{% endblock %}
-
 {% block main %}
-<h1>Информация о группе <i>{{ group.title }}</i></h1>
-<h3>Все публикации:</h3>
+<h1>{{ group.title }}.</h1>
+<h3>{{ group.description }}</h3>
 <div class = "list-group-item list-group-flush">
     {% for post in posts %}
     <li class="list-group-item">
         <ul>
-            <li>
-            Автор: {{ post.author.get_full_name }}
-            </li>
-            <li>
-            Дата публикации: {{ post.pub_date|date:"d E Y" }}
-            </li>
+            <li>Автор: {{ post.author.get_full_name }}</li>
+            <li>Дата публикации: {{ post.pub_date|date:"d E Y" }}</li>
         </ul>
         <p>{{ post.text }}</p>
     </li>
