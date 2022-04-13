@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 
+{% block title %}Записи сообщества {{ group.title }}{% endblock %}
+
 {% block main %}
-<h1>{{ group.title }}.</h1>
-<h3>{{ group.description }}</h3>
-<div class = "list-group-item list-group-flush">
+    <h1>{{ group.title }}.</h1>
+    <p>{{ group.description|linebreaks }}</p>
     {% for post in posts %}
-    <li class="list-group-item">
-        <ul>
-            <li>Автор: {{ post.author.get_full_name }}</li>
-            <li>Дата публикации: {{ post.pub_date|date:"d E Y" }}</li>
-        </ul>
-        <p>{{ post.text }}</p>
-    </li>
+        <article>
+            {% include 'includes/article_body.html' %}
+        </article>
+        {% if forloop.revcounter > 1 %}
+            <hr>
+        {% endif %}
     {% endfor %}
-</div>
 {% endblock %}

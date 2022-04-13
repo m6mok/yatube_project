@@ -1,21 +1,20 @@
 {% extends 'base.html' %}
 
+{% block title %}Последние обновления на сайте{% endblock %}
+
 {% block main %}
-<div class="container py-5">     
     <h1>Последние обновления на сайте</h1>
-    <div class = "list-group-item list-group-flush">
-        {% for post in posts %}
-        <li class="list-group-item">
-            <ul>
-                <li>Автор: {{ post.author.get_full_name }}</li>
-                <li>Дата публикации: {{ post.pub_date|date:"d E Y" }}</li>
-            </ul>
-            <p>{{ post.text }}</p>
+    {% for post in posts %}
+        <article>
+            {% include 'includes/article_body.html' %}
             {% if post.group %}
-                <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+                <a href="{% url 'posts:group_list' post.group.slug %}">
+                    все записи сообщества {{ post.group.title }}
+                </a>
             {% endif %}
-        </li>
-        {% endfor %}
-    </div>
-</div>
+        </article>
+        {% if forloop.revcounter > 1 %}
+            <hr>
+        {% endif %}
+    {% endfor %}
 {% endblock %}
